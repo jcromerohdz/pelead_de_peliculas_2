@@ -10,6 +10,7 @@ const fetchData = async (searchTerm) => {
         return []
     }
     console.log(response.data)
+    console.log(response.data)
     return response.data.Search
 }
 
