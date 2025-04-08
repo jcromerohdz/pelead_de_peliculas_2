@@ -28,7 +28,8 @@ autoCompleteConfig = {
         return movie.Title
     },
     async fetchData(searchTerm) {
-        apiMovieURL = 'http://www.omdapi.com/'
+        console.log("Hello!")
+        apiMovieURL = 'http://www.omdbapi.com/'
         const response = await axios.get(apiMovieURL, {
             params: {
                 apikey: '40a83d1b',
@@ -149,65 +150,26 @@ const movieTemplate = (movieDetails) => {
             </div>
         </article>
         <article data-values=${awards} class="notification is-primary">
-            <p class="title">${movieDetail.Awards}</p>
+            <p class="title">${movieDetails.Awards}</p>
             <p class="subtitle">Awards</p>
         </article>
         <article data-values=${dollars} class="notification is-primary">
-            <p class="title">${movieDetail.BoxOffice}</p>
+            <p class="title">${movieDetails.BoxOffice}</p>
             <p class="subtitle">Box Office</p>
         </article>
         <article data-values=${metascore} class="notification is-primary">
-            <p class="title">${movieDetail.Metascore}</p>
+            <p class="title">${movieDetails.Metascore}</p>
             <p class="subtitle">Metascore</p>
         </article>
         <article data-values=${imdbRating} class="notification is-primary">
-            <p class="title">${movieDetail.imdbRating}</p>
+            <p class="title">${movieDetails.imdbRating}</p>
             <p class="subtitle">IMDB Rating</p>
         </article>
         <article data-values=${imdbVotes} class="notification is-primary">
-            <p class="title">${movieDetail.imdbVotes}</p>
+            <p class="title">${movieDetails.imdbVotes}</p>
             <p class="subtitle">IMDB Votes</p>
         </article>   
     `
 }
 
 
-
-const root = document.querySelector('.autocomplete')
-root.innerHTML = `
-    <label><b>Busqueda de peliculas</b></label>
-    <input class="input" />
-    <div class="dropdown">
-        <div class="dropdown-menu">
-            <div class="dropdown-content results"></div>
-        </div>
-    </div>
-`
-const input = document.querySelector('input')
-const dropdown = document.querySelector('.dropdown')
-const resultsWrapper = document.querySelector('.results')
-
-const debounce = (func, delay=1000) => {
-    let timeoutId
-    return(...args) => {
-        clearTimeout(timeoutId)
-        timeoutId = setTimeout(() => {
-            func.apply(null, args)
-        }, delay)
-    }
-}
-
-const onIput = async event => {
-    const movies = await fetchData(event.target.value)
-    console.log("Movies: ", movies)
-    if(!movies.length){
-        dropdown.classList.remove('is-active')
-        return
-    }
-    resultsWrapper.innerHTML = ''
-    dropdown.classList.add('is-active')
-    for(let movie of movies){
-        const option = document.createElement('a')
-         const imgSrc = movie.Poster === 'N/A' ? '': movie.Poster
-    }
-}
